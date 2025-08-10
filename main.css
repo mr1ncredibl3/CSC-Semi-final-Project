@@ -160,12 +160,11 @@ main {
 .typewriter {
   white-space: nowrap;
   overflow: hidden;
-  border-right: 0.15em solid white;
+  border-right: 5px solid white;
   animation: typing 2s, cursor 0.4s step-end infinite alternate;
   letter-spacing: 6px;
   color: white;
-  padding-bottom: 0.2em;
-  font-size: clamp(1.2rem, 4vw, 2rem);
+  padding-bottom: 0.5em;
   text-align: center;
   max-width: 100%;
 }
@@ -321,6 +320,21 @@ select:focus {
 
 .loading {
   animation: pulse 1.5s ease-in-out infinite;
+}
+
+.img-container{
+  display: flex;
+  gap: 20px;
+}
+
+.img-container img{
+  width: 350px;
+  height: 350px;
+}
+.img-container p{
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes pulse {

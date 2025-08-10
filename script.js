@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let mesg = document.querySelector(".addedsuccessfully span");
       let priority = document.querySelector("select").value;
 
-      if (input.value.trim() !== "" && priority !== "") {
+      if (input.value.trim() !== "" && priority !== "Priority") {
         let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         tasks.push({
           name: input.value,
@@ -59,16 +59,58 @@ document.addEventListener("DOMContentLoaded", function () {
   if (page === "pending.html") {
     let container = document.querySelector(".addedtask");
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    if (tasks.length === 0) {
+    let pending = tasks.filter((t) => t.priority !== "High");
+    if (pending.length === 0) {
       container.innerHTML = "<p>No Pending Tasks Now...</p>";
       return;
     }
 
-    tasks.forEach((t) => {
+    pending.forEach((t) => {
       let taskEl = document.createElement("div");
       taskEl.classList.add("task-container", `priority-${t.priority}`);
-      taskEl.innerHTML = `<strong>${t.name}</strong><br>Priority: ${t.priority}<br>Date added: ${t.date}`;
+      taskEl.innerHTML = `<strong>${t.name}</strong><br>Priority: ${t.priority}<br>Date added: ${t.date}<br><button class="donebtn">Done</button>`;
+      let donebtn = taskEl.querySelector(".donebtn");
+      donebtn.style.backgroundColor = "green";
+      donebtn.addEventListener("click", function () {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks = tasks.filter(
+          (task) => !(task.name === t.name && task.date === t.date)
+        );
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        let done = JSON.parse(localStorage.getItem("doneTasks")) || [];
+        done.push(t);
+        localStorage.setItem("doneTasks", JSON.stringify(done));
+        taskEl.remove();
+      });
+      container.appendChild(taskEl);
+    });
+  }
+  if (page === "priorities.html") {
+    let container = document.querySelector(".addedtask");
+    let tasks =
+      JSON.parse(localStorage.getItem("tasks")) ||
+      [].filter((t) => t.priority === "High");
+    let high = tasks.filter((t) => t.priority === "High");
+
+    if (high.length === 0) {
+      container.innerHTML = "<p>No Pending Tasks Now...</p>";
+      return;
+    }
+
+    high.forEach((t) => {
+      let taskEl = document.createElement("div");
+      taskEl.classList.add("task-container", `priority-${t.priority}`);
+      taskEl.innerHTML = `<b>${t.name}</b><br>Priority: ${t.priority}<br>Date added: ${t.date}<br><button class="donebtn">Done</button>`;
+      let donebtn = taskEl.querySelector(".donebtn");
+      donebtn.style.backgroundColor = "green";
+      donebtn.addEventListener("click", function () {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks = tasks.filter(
+          (task) => !(task.name == t.name && task.date === t.date)
+        );
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        taskEl.remove();
+      });
       container.appendChild(taskEl);
     });
   }
