@@ -70,7 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
       taskEl.classList.add("task-container", `priority-${t.priority}`);
       taskEl.innerHTML = `<strong>${t.name}</strong><br>Priority: ${t.priority}<br>Date added: ${t.date}<br><button class="donebtn">Done</button>`;
       let donebtn = taskEl.querySelector(".donebtn");
-      donebtn.style.backgroundColor = "green";
+      donebtn.style.backgroundColor = "#aef359";
+      donebtn.style.borderRadius = "0.5rem";
+      donebtn.style.padding = "10px";
       donebtn.addEventListener("click", function () {
         let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         tasks = tasks.filter(
@@ -102,7 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
       taskEl.classList.add("task-container", `priority-${t.priority}`);
       taskEl.innerHTML = `<b>${t.name}</b><br>Priority: ${t.priority}<br>Date added: ${t.date}<br><button class="donebtn">Done</button>`;
       let donebtn = taskEl.querySelector(".donebtn");
-      donebtn.style.backgroundColor = "green";
+      donebtn.style.backgroundColor = "#aef359";
+      donebtn.style.borderRadius = "0.5rem";
+      donebtn.style.padding = "5px";
       donebtn.addEventListener("click", function () {
         let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         tasks = tasks.filter(
